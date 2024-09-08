@@ -25,12 +25,6 @@ CREATE TABLE [AspNetUsers] (
     CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id])
 );
 
-CREATE TABLE [Categories] (
-    [Id] smallint NOT NULL IDENTITY,
-    [Name] nvarchar(25) NOT NULL,
-    CONSTRAINT [PK_Categories] PRIMARY KEY ([Id])
-);
-
 CREATE TABLE [AspNetRoleClaims] (
     [Id] int NOT NULL IDENTITY,
     [RoleId] nvarchar(450) NOT NULL,
