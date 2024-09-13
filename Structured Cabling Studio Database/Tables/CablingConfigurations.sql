@@ -1,0 +1,5 @@
+CREATE TABLE CablingConfigurations (
+    Id BIGINT PRIMARY KEY IDENTITY NOT NULL,
+    UserId NVARCHAR(450) NULL,
+    RecordTime DATETIME(2) NOT NULL
+)
