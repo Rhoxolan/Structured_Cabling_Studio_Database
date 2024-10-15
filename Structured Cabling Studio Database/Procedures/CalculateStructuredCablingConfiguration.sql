@@ -1,3 +1,4 @@
 CREATE PROCEDURE CalculateStructuredCablingConfiguration
-    @CalculateViewModel XML INPUT
+    @StructuredCablingStudioParameters XML INPUT
+    @ConfigurationCalculateParameters XML INPUT
     @CablingConfiguration XML OUTPUT
