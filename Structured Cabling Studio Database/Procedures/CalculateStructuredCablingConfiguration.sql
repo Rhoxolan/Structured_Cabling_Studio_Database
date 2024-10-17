@@ -17,3 +17,31 @@ BEGIN
     DECLARE @IsStrictComplianceWithTheStandart BIT;
     DECLARE @IsAnArbitraryNumberOfPorts BIT;
     DECLARE @IsTechnologicalReserveAvailability BIT;
+
+    SET @CablingConfiguration = CASE
+                                    WHEN @IsCableHankMeterageAvailability = 1
+                                        THEN CalculateConfigurationWithHankMeterage(@MinPermanentLink,
+                                                                                    @MaxPermanentLink,
+                                                                                    @NumberOfWorkplaces,
+                                                                                    @NumberOfPorts,
+                                                                                    @RecordTime,
+                                                                                    @CableHankMeterage,
+                                                                                    @TechnologicalReserve,
+                                                                                    @IsRecommendationsAvailability,
+                                                                                    @IsStrictComplianceWithTheStandart,
+                                                                                    @IsAnArbitraryNumberOfPorts,
+                                                                                    @IsTechnologicalReserveAvailability)
+                                    ELSE CalculateConfigurationWithoutHankMeterage(@MinPermanentLink,
+                                                                                    @MaxPermanentLink,
+                                                                                    @NumberOfWorkplaces,
+                                                                                    @NumberOfPorts,
+                                                                                    @RecordTime,
+                                                                                    @TechnologicalReserve,
+                                                                                    @IsRecommendationsAvailability,
+                                                                                    @IsStrictComplianceWithTheStandart,
+                                                                                    @IsAnArbitraryNumberOfPorts,
+                                                                                    @IsTechnologicalReserveAvailability
+                                                                                    )
+                                END;
+
+END;
