@@ -1,7 +1,7 @@
 CREATE TABLE CablingConfigurations (
     Id BIGINT PRIMARY KEY IDENTITY NOT NULL,
     UserId NVARCHAR(450) REFERENCES AspNetUsers(Id) ON DELETE CASCADE NULL,
-    RecordTime DATETIME(2) NOT NULL, -- Record time of the structured cabling configuration record
+    RecordTime DATETIME2 NOT NULL, -- Record time of the structured cabling configuration record
     MinPermanentLink FLOAT(1) NOT NULL, -- Value of permanent link minimum length in the structured cabling configuration record
     MaxPermanentLink FLOAT(1) NOT NULL, -- Value of permanent link maximum length in the structured cabling configuration record
     AveragePermanentLink FLOAT(1) NOT NULL, -- Value of permanent link average length in the structured cabling configuration record
