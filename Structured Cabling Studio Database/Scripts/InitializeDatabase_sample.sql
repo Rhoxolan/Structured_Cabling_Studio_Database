@@ -4,3 +4,4 @@
 
 --Procedures
 :R "..\Procedures\SetAuthorizationSessionContext.sql"
+:R "..\Procedures\CalculateStructuredCablingConfiguration.sql"
