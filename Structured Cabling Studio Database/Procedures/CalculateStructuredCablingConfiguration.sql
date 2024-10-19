@@ -18,6 +18,16 @@ BEGIN
     DECLARE @IsAnArbitraryNumberOfPorts BIT;
     DECLARE @IsTechnologicalReserveAvailability BIT;
 
+    DECLARE @CablingConfigurationCalculatedData XML;
+
+    DECLARE @AveragePermanentLink FLOAT(1);
+    DECLARE @CableQuantity FLOAT(1);
+    DECLARE @HankQuantity INT;
+    DECLARE @TotalCableQuantity FLOAT(1);
+    DECLARE @Recommendations NVARCHAR(MAX);
+
+    DECLARE @UserId NVARCHAR(450);
+
     SET @CableHankMeterage = @ConfigurationCalculateParameters.value('(/ConfigurationCalculateParameters/CableHankMeterage)[1]', 'int');
     SET @IsCableHankMeterageAvailability = @ConfigurationCalculateParameters.value('(/ConfigurationCalculateParameters/IsCableHankMeterageAvailability)[1]', 'bit');
 
@@ -27,13 +37,12 @@ BEGIN
     SET @IsAnArbitraryNumberOfPorts = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsAnArbitraryNumberOfPorts)[1]', 'bit');
     SET @IsTechnologicalReserveAvailability = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsTechnologicalReserveAvailability)[1]', 'bit');
 
-    SET @CablingConfiguration = CASE
+    SET @CablingConfigurationCalculatedData = CASE
                                     WHEN @IsCableHankMeterageAvailability = 1
                                         THEN CalculateConfigurationWithHankMeterage(@MinPermanentLink,
                                                                                     @MaxPermanentLink,
                                                                                     @NumberOfWorkplaces,
                                                                                     @NumberOfPorts,
-                                                                                    @RecordTime,
                                                                                     @CableHankMeterage,
                                                                                     @TechnologicalReserve,
                                                                                     @IsRecommendationsAvailability,
@@ -44,12 +53,21 @@ BEGIN
                                                                                     @MaxPermanentLink,
                                                                                     @NumberOfWorkplaces,
                                                                                     @NumberOfPorts,
-                                                                                    @RecordTime,
                                                                                     @TechnologicalReserve,
                                                                                     @IsRecommendationsAvailability,
                                                                                     @IsStrictComplianceWithTheStandart,
                                                                                     @IsAnArbitraryNumberOfPorts,
                                                                                     @IsTechnologicalReserveAvailability)
                                 END;
+
+    SET @UserId = CAST(SESSION_CONTEXT(N'UserId') AS NVARCHAR(450));
+
+    IF @UserId IS NOT NULL
+    BEGIN
+        INSERT INTO CablingConfigurations(UserId, RecordTime, MinPermanentLink, MaxPermanentLink, AveragePermanentLink, NumberOfWorkplaces, NumberOfPorts, CableQuantity,
+                                            CableHankMeterage, HankQuantity, TotalCableQuantity, Recommendations)
+        VALUES(@UserId, @RecordTime, @MinPermanentLink, @MaxPermanentLink, @AveragePermanentLink, @NumberOfWorkplaces, @NumberOfPorts, @CableQuantity, @CableHankMeterage,
+                @HankQuantity, @TotalCableQuantity, @Recommendations)
+    END
 
 END;
