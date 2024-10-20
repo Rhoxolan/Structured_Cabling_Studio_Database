@@ -26,6 +26,7 @@ BEGIN
     DECLARE @TotalCableQuantity FLOAT(1);
     DECLARE @Recommendations NVARCHAR(MAX);
 
+    DECLARE @Id BIGINT;
     DECLARE @UserId NVARCHAR(450);
 
     SET @CableHankMeterage = @ConfigurationCalculateParameters.value('(/ConfigurationCalculateParameters/CableHankMeterage)[1]', 'int');
@@ -70,10 +71,33 @@ BEGIN
 
     IF @UserId IS NOT NULL
     BEGIN
+        DECLARE @InsertedIds TABLE (Id BIGINT);
+
         INSERT INTO CablingConfigurations(UserId, RecordTime, MinPermanentLink, MaxPermanentLink, AveragePermanentLink, NumberOfWorkplaces, NumberOfPorts, CableQuantity,
                                             CableHankMeterage, HankQuantity, TotalCableQuantity, Recommendations)
+        OUTPUT inserted.Id INTO InsertedIds
         VALUES(@UserId, @RecordTime, @MinPermanentLink, @MaxPermanentLink, @AveragePermanentLink, @NumberOfWorkplaces, @NumberOfPorts, @CableQuantity, @CableHankMeterage,
                 @HankQuantity, @TotalCableQuantity, @Recommendations)
+        
+        SET @Id = (SELECT Id FROM @InsertedIds);
     END
+
+    SET @CablingConfiguration = (
+        SELECT
+            @Id AS 'Id',
+            @UserId AS 'UserId',
+            @RecordTime AS 'RecordTime',
+            @MinPermanentLink AS 'MinPermanentLink',
+            @MaxPermanentLink AS 'MaxPermanentLink',
+            @AveragePermanentLink AS 'AveragePermanentLink',
+            @NumberOfWorkplaces AS 'NumberOfWorkplaces',
+            @NumberOfPorts AS 'NumberOfPorts',
+            @CableQuantity AS 'CableQuantity',
+            @CableHankMeterage AS 'CableHankMeterage',
+            @HankQuantity AS 'HankQuantity',
+            @TotalCableQuantity AS 'TotalCableQuantity',
+            @Recommendations AS 'Recommendations'
+        FOR XML PATH('CablingConfiguration'), TYPE
+    );
 
 END;
