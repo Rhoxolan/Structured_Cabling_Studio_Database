@@ -12,7 +12,7 @@ BEGIN
     DECLARE @CableHankMeterage INT;
     DECLARE @IsCableHankMeterageAvailability BIT;
 
-    DECLARE @TechnologicalReserve FLOAT;
+    DECLARE @TechnologicalReserve FLOAT(1);
     DECLARE @IsRecommendationsAvailability BIT;
     DECLARE @IsStrictComplianceWithTheStandart BIT;
     DECLARE @IsAnArbitraryNumberOfPorts BIT;
