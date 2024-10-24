@@ -17,6 +17,7 @@ BEGIN
     DECLARE @IsStrictComplianceWithTheStandart BIT;
     DECLARE @IsAnArbitraryNumberOfPorts BIT;
     DECLARE @IsTechnologicalReserveAvailability BIT;
+    DECLARE @RecommendationsArguments XML;
 
     DECLARE @CablingConfigurationCalculatedData XML;
 
@@ -37,6 +38,7 @@ BEGIN
     SET @IsStrictComplianceWithTheStandart = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsStrictComplianceWithTheStandart)[1]', 'bit');
     SET @IsAnArbitraryNumberOfPorts = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsAnArbitraryNumberOfPorts)[1]', 'bit');
     SET @IsTechnologicalReserveAvailability = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsTechnologicalReserveAvailability)[1]', 'bit');
+    SET @RecommendationsArguments = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/RecommendationsArguments)[1]', 'xml');
 
     SET @CablingConfigurationCalculatedData = CASE
                                     WHEN @IsCableHankMeterageAvailability = 1
@@ -49,7 +51,8 @@ BEGIN
                                                                                     @IsRecommendationsAvailability,
                                                                                     @IsStrictComplianceWithTheStandart,
                                                                                     @IsAnArbitraryNumberOfPorts,
-                                                                                    @IsTechnologicalReserveAvailability)
+                                                                                    @IsTechnologicalReserveAvailability,
+                                                                                    @RecommendationsArguments)
                                     ELSE CalculateConfigurationWithoutHankMeterage(@MinPermanentLink,
                                                                                     @MaxPermanentLink,
                                                                                     @NumberOfWorkplaces,
@@ -58,7 +61,8 @@ BEGIN
                                                                                     @IsRecommendationsAvailability,
                                                                                     @IsStrictComplianceWithTheStandart,
                                                                                     @IsAnArbitraryNumberOfPorts,
-                                                                                    @IsTechnologicalReserveAvailability)
+                                                                                    @IsTechnologicalReserveAvailability,
+                                                                                    @RecommendationsArguments)
                                 END;
 
     SET @AveragePermanentLink = @CablingConfigurationCalculatedData.value('(/Data/AveragePermanentLink)[1]', 'float');

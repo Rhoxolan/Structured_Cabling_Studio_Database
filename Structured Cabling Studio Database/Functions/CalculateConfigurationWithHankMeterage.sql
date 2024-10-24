@@ -8,7 +8,8 @@ CREATE FUNCTION CalculateConfigurationWithHankMeterage(
     @IsRecommendationsAvailability BIT,
     @IsStrictComplianceWithTheStandart BIT,
     @IsAnArbitraryNumberOfPorts BIT,
-    @IsTechnologicalReserveAvailability BIT
+    @IsTechnologicalReserveAvailability BIT,
+    @RecommendationsArguments XML
 )
 RETURNS XML
 AS
@@ -28,4 +29,14 @@ BEGIN
     DECLARE @CableQuantity FLOAT(1) = @AveragePermanentLink * @NumberOfWorkplaces * @NumberOfPorts;
     DECLARE @HankQuantity INT = CAST(CEILING(@NumberOfWorkplaces * @NumberOfPorts / FLOOR(@CableHankMeterage / @AveragePermanentLink)) AS INT);
     DECLARE @TotalCableQuantity FLOAT(1) = @HankQuantity * @CableHankMeterage;
+    DECLARE @Recommendations NVARCHAR(MAX);
+
+    IF @IsRecommendationsAvailability = 1
+    BEGIN
+        DECLARE @IsolationType NVARCHAR(MAX) = @RecommendationsArguments.value('(/RecommendationsArguments/IsolationType)[1]', 'nvarchar(max)');
+        DECLARE @IsolationMaterial NVARCHAR(MAX) = @RecommendationsArguments.value('(/RecommendationsArguments/IsolationMaterial)[1]', 'nvarchar(max)');
+        DECLARE @ShieldedType NVARCHAR(MAX) = @RecommendationsArguments.value('(/RecommendationsArguments/ShieldedType)[1]', 'nvarchar(max)');
+        DECLARE @ConnectionInterfaces XML = @RecommendationsArguments.value('(/RecommendationsArguments/ConnectionInterfaces)[1]', 'xml');
+    END
+
 END
