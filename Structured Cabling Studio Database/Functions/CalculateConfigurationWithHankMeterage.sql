@@ -14,6 +14,8 @@ CREATE FUNCTION CalculateConfigurationWithHankMeterage(
 RETURNS XML
 AS
 BEGIN
+    DECLARE @CablingConfigurationCalculatedData XML;
+
     IF @CableHankMeterage IS NULL
     BEGIN
         THROW 51000, 'Structured cabling configuration calculating error! Value of cable meterage in 1 hank is not determined', 1;
@@ -37,6 +39,37 @@ BEGIN
         DECLARE @IsolationMaterial NVARCHAR(MAX) = @RecommendationsArguments.value('(/RecommendationsArguments/IsolationMaterial)[1]', 'nvarchar(max)');
         DECLARE @ShieldedType NVARCHAR(MAX) = @RecommendationsArguments.value('(/RecommendationsArguments/ShieldedType)[1]', 'nvarchar(max)');
         DECLARE @ConnectionInterfaces XML = @RecommendationsArguments.value('(/RecommendationsArguments/ConnectionInterfaces)[1]', 'xml');
+
+        DECLARE @RecommendationIsolationType NVARCHAR(50);
+        DECLARE @RecommendationIsolationMaterial NVARCHAR(50);
+        DECLARE @RecommendationShieldedType NVARCHAR(50);
+        DECLARE @RecommendationCableStandard NVARCHAR(50);
+
+        SELECT @RecommendationIsolationType = GetIsolationTypeRecommendation(@IsolationType);
+        SELECT @RecommendationIsolationMaterial = GetIsolationMaterialRecommendation(@IsolationMaterial);
+        SELECT @RecommendationShieldedType = GetShieldedTypeRecommendation(@ShieldedType);
+        SELECT @RecommendationCableStandard = GetCableStandardRecommendation(@ShieldedType);
+
+        SET @Recommendations = (
+            SELECT
+                @RecommendationIsolationType AS RecommendationIsolationType,
+                @RecommendationIsolationMaterial AS RecommendationIsolationMaterial,
+                @RecommendationShieldedType AS RecommendationShieldedType,
+                @RecommendationCableStandard AS RecommendationCableStandard
+            FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
+        );
     END
+
+    SET @CablingConfigurationCalculatedData = (
+        SELECT
+            @AveragePermanentLink AS 'AveragePermanentLink',
+            @CableQuantity AS 'CableQuantity',
+            @HankQuantity AS 'HankQuantity',
+            @TotalCableQuantity AS 'TotalCableQuantity',
+            @Recommendations AS 'Recommendations'
+        FOR XML PATH('CablingConfigurationCalculatedData'), TYPE
+    );
+
+    RETURN @CablingConfigurationCalculatedData;
 
 END
