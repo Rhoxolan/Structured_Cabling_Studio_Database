@@ -17,7 +17,7 @@ BEGIN
     SELECT @RecommendationIsolationType = GetIsolationTypeRecommendation(@IsolationType);
     SELECT @RecommendationIsolationMaterial = GetIsolationMaterialRecommendation(@IsolationMaterial);
     SELECT @RecommendationShieldedType = GetShieldedTypeRecommendation(@ShieldedType);
-    SELECT @RecommendationCableStandard = GetCableStandardRecommendation(@ShieldedType);
+    SELECT @RecommendationCableStandard = GetCableStandardRecommendation(@ConnectionInterfaces);
 
     SET @Recommendations = (
         SELECT
