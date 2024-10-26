@@ -2,8 +2,11 @@ CREATE FUNCTION GetIsolationTypeRecommendation(@IsolationType NVARCHAR(MAX))
 RETURNS NVARCHAR(50)
 AS
 BEGIN
-    RETURN CASE @IsolationType
-            WHEN 'Indoor' THEN 'Indoor'
-            WHEN 'Outdoor' THEN 'Outdoor'
-    END
+    DECLARE @Recommendation NVARCHAR(50);
+
+    SELECT @Recommendation = Recommendation
+    FROM IsolationTypeRecommendations
+    WHERE IsolationType = @IsolationType;
+
+    RETURN @Recommendation;
 END
