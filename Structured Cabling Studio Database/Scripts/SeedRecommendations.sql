@@ -1,16 +1,16 @@
-INSERT INTO IsolationTypeRecommendations VALUES
+INSERT INTO Calculate.IsolationTypeRecommendations VALUES
 ('Indoor', 'Indoor'),
 ('Outdoor', 'Outdoor')
 
-INSERT INTO IsolationMaterialRecommendations VALUES
+INSERT INTO Calculate.IsolationMaterialRecommendations VALUES
 ('LSZH', 'LSZH, LSOH, LSHF, LSNH, NHFR, HFFR, FRZH, LSFRZH'),
 ('PVC', 'PVC, PP, PE')
 
-INSERT INTO ShieldedTypeRecommendations VALUES
+INSERT INTO Calculate.ShieldedTypeRecommendations VALUES
 ('FTP', 'FTP, STP, F/UTP, S/UTP, U/FTP, SF/UTP, F/FTP, S/FTP, SF/FTP'),
 ('UTP', 'UTP (U/UTP)')
 
-INSERT INTO CableStandardRecommendations VALUES
+INSERT INTO Calculate.CableStandardRecommendations VALUES
 ('TenBASE_T', 1, '3 (Cat 3), 5 (Cat 5), 5e (Cat 5e)'),
 ('FastEthernet', 2, '5 (Cat 5), 5e (Cat 5e)'),
 ('GigabitBASE_T', 3, '5e (Cat 5e)'),

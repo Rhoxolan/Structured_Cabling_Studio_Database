@@ -1,4 +1,4 @@
-CREATE PROCEDURE CalculateStructuredCablingConfiguration
+CREATE PROCEDURE Calculation.CalculateStructuredCablingConfiguration
     @ConfigurationCalculateParameters XML INPUT,
     @StructuredCablingStudioParameters XML INPUT,
     @RecordTime DATETIME2 INPUT,
@@ -42,7 +42,7 @@ BEGIN
 
     SET @CablingConfigurationCalculatedData = CASE
                                     WHEN @IsCableHankMeterageAvailability = 1
-                                        THEN CalculateConfigurationWithHankMeterage(@MinPermanentLink,
+                                        THEN Calculation.CalculateConfigurationWithHankMeterage(@MinPermanentLink,
                                                                                     @MaxPermanentLink,
                                                                                     @NumberOfWorkplaces,
                                                                                     @NumberOfPorts,
@@ -53,7 +53,7 @@ BEGIN
                                                                                     @IsAnArbitraryNumberOfPorts,
                                                                                     @IsTechnologicalReserveAvailability,
                                                                                     @RecommendationsArguments)
-                                    ELSE CalculateConfigurationWithoutHankMeterage(@MinPermanentLink,
+                                    ELSE Calculation.CalculateConfigurationWithoutHankMeterage(@MinPermanentLink,
                                                                                     @MaxPermanentLink,
                                                                                     @NumberOfWorkplaces,
                                                                                     @NumberOfPorts,
@@ -77,7 +77,7 @@ BEGIN
     BEGIN
         DECLARE @InsertedIds TABLE (Id BIGINT);
 
-        INSERT INTO CablingConfigurations(UserId, RecordTime, MinPermanentLink, MaxPermanentLink, AveragePermanentLink, NumberOfWorkplaces, NumberOfPorts, CableQuantity,
+        INSERT INTO Calculation.CablingConfigurations(UserId, RecordTime, MinPermanentLink, MaxPermanentLink, AveragePermanentLink, NumberOfWorkplaces, NumberOfPorts, CableQuantity,
                                             CableHankMeterage, HankQuantity, TotalCableQuantity, Recommendations)
         OUTPUT inserted.Id INTO InsertedIds
         VALUES(@UserId, @RecordTime, @MinPermanentLink, @MaxPermanentLink, @AveragePermanentLink, @NumberOfWorkplaces, @NumberOfPorts, @CableQuantity, @CableHankMeterage,

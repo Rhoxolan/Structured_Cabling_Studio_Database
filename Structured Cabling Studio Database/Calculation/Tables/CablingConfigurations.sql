@@ -1,4 +1,4 @@
-CREATE TABLE CablingConfigurations (
+CREATE TABLE Calculation.CablingConfigurations (
     Id BIGINT PRIMARY KEY IDENTITY NOT NULL,
     UserId NVARCHAR(450) REFERENCES AspNetUsers(Id) ON DELETE CASCADE NULL,
     RecordTime DATETIME2 NOT NULL, -- Record time of the structured cabling configuration record
