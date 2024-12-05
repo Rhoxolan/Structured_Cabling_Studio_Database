@@ -14,9 +14,9 @@ BEGIN
     SET @IsAnArbitraryNumberOfPorts = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsAnArbitraryNumberOfPorts)[1]', 'bit');
     SET @IsTechnologicalReserveAvailability = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsTechnologicalReserveAvailability)[1]', 'bit');
 
-    SELECT @StructuredCablingStudioDiapasons = Calculate.GetStructuredCablingStudioParametersDiapasons(@IsRecommendationsAvailability,
-                                                                                                    @IsStrictComplianceWithTheStandart,
-                                                                                                    @IsAnArbitraryNumberOfPorts,
-                                                                                                    @IsTechnologicalReserveAvailability);
+    SET @StructuredCablingStudioDiapasons = Calculate.GetStructuredCablingStudioParametersDiapasons(@IsRecommendationsAvailability,
+                                                                                                @IsStrictComplianceWithTheStandart,
+                                                                                                @IsAnArbitraryNumberOfPorts,
+                                                                                                @IsTechnologicalReserveAvailability);
 
 END;
