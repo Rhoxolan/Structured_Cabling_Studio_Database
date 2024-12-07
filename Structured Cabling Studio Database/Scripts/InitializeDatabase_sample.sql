@@ -9,6 +9,12 @@
 :R "..\Calculation\Tables\IsolationMaterialRecommendations.sql"
 :R "..\Calculation\Tables\IsolationTypeRecommendations.sql"
 :R "..\Calculation\Tables\ShieldedTypeRecommendations.sql"
+:R "..\Calculation\Tables\CableHankMeterageDiapasons.sql"
+:R "..\Calculation\Tables\MaxPermanentLinkDiapasons.sql"
+:R "..\Calculation\Tables\MinPermanentLinkDiapasons.sql"
+:R "..\Calculation\Tables\NumberOfPortsDiapasons.sql"
+:R "..\Calculation\Tables\NumberOfWorkplacesDiapasons.sql"
+:R "..\Calculation\Tables\TechnologicalReserveDiapasons.sql"
 
 --Functions
 --Calculation
@@ -28,3 +34,4 @@
 
 --Seed Data
 :R "..\Scripts\SeedRecommendations.sql"
+:R "..\Scripts\SeedDiapasons.sql"
