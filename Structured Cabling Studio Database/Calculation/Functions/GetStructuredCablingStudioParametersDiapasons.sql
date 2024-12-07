@@ -33,5 +33,4 @@ BEGIN
     );
 
     RETURN @StructuredCablingStudioDiapasons;
-
 END;
