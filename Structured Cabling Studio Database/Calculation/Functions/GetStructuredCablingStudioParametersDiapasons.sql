@@ -1,8 +1,6 @@
 CREATE FUNCTION Calculate.GetStructuredCablingStudioParametersDiapasons(
-    @IsRecommendationsAvailability BIT,
     @IsStrictComplianceWithTheStandart BIT,
-    @IsAnArbitraryNumberOfPorts BIT,
-    @IsTechnologicalReserveAvailability BIT
+    @IsAnArbitraryNumberOfPorts BIT
 )
 RETURNS XML
 AS
@@ -19,9 +17,21 @@ BEGIN
     SELECT @MinPermanentLinkDiapason = Calculate.GetMinPermanentLinkDiapason(@IsStrictComplianceWithTheStandart);
     SELECT @MaxPermanentLinkDiapason = Calculate.GetMaxPermanentLinkDiapason(@IsStrictComplianceWithTheStandart);
     SELECT @NumberOfPortsDiapason = Calculate.GetNumberOfPortsDiapason(@IsAnArbitraryNumberOfPorts);
-    SELECT @NumberOfWorkplacesDiapason = Calculate.GetNumberOfWorkplacesDiapason(@IsStrictComplianceWithTheStandart);
-    SELECT @CableHankMeterageDiapason = Calculate.GetCableHankMeterageDiapason(@IsStrictComplianceWithTheStandart);
-    SELECT @TechnologicalReserveDiapason = Calculate.GetTechnologicalReserveDiapason(@IsTechnologicalReserveAvailability);
+    SELECT @NumberOfWorkplacesDiapason = Calculate.GetNumberOfWorkplacesDiapason();
+    SELECT @CableHankMeterageDiapason = Calculate.GetCableHankMeterageDiapason();
+    SELECT @TechnologicalReserveDiapason = Calculate.GetTechnologicalReserveDiapason();
 
+    SET @StructuredCablingStudioDiapasons = (
+        SELECT
+            @MinPermanentLinkDiapason AS 'MinPermanentLinkDiapason',
+            @MaxPermanentLinkDiapason AS 'MaxPermanentLinkDiapason',
+            @NumberOfPortsDiapason AS 'NumberOfPortsDiapason',
+            @NumberOfWorkplacesDiapason AS 'NumberOfWorkplacesDiapason',
+            @CableHankMeterageDiapason AS 'CableHankMeterageDiapason',
+            @TechnologicalReserveDiapason AS 'TechnologicalReserveDiapason'
+        FOR XML PATH('StructuredCablingStudioDiapasons'), TYPE
+    );
+
+    RETURN @StructuredCablingStudioDiapasons;
 
 END;
