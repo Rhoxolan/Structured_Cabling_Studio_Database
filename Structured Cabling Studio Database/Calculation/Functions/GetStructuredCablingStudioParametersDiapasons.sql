@@ -1,4 +1,4 @@
-CREATE FUNCTION Calculate.GetStructuredCablingStudioParametersDiapasons(
+CREATE FUNCTION Calculation.GetStructuredCablingStudioParametersDiapasons(
     @IsStrictComplianceWithTheStandart BIT,
     @IsAnArbitraryNumberOfPorts BIT
 )
@@ -14,12 +14,12 @@ BEGIN
     DECLARE @CableHankMeterageDiapason XML;
     DECLARE @TechnologicalReserveDiapason XML;
 
-    SELECT @MinPermanentLinkDiapason = Calculate.GetMinPermanentLinkDiapason(@IsStrictComplianceWithTheStandart);
-    SELECT @MaxPermanentLinkDiapason = Calculate.GetMaxPermanentLinkDiapason(@IsStrictComplianceWithTheStandart);
-    SELECT @NumberOfPortsDiapason = Calculate.GetNumberOfPortsDiapason(@IsAnArbitraryNumberOfPorts);
-    SELECT @NumberOfWorkplacesDiapason = Calculate.GetNumberOfWorkplacesDiapason();
-    SELECT @CableHankMeterageDiapason = Calculate.GetCableHankMeterageDiapason();
-    SELECT @TechnologicalReserveDiapason = Calculate.GetTechnologicalReserveDiapason();
+    SELECT @MinPermanentLinkDiapason = Calculation.GetMinPermanentLinkDiapason(@IsStrictComplianceWithTheStandart);
+    SELECT @MaxPermanentLinkDiapason = Calculation.GetMaxPermanentLinkDiapason(@IsStrictComplianceWithTheStandart);
+    SELECT @NumberOfPortsDiapason = Calculation.GetNumberOfPortsDiapason(@IsAnArbitraryNumberOfPorts);
+    SELECT @NumberOfWorkplacesDiapason = Calculation.GetNumberOfWorkplacesDiapason();
+    SELECT @CableHankMeterageDiapason = Calculation.GetCableHankMeterageDiapason();
+    SELECT @TechnologicalReserveDiapason = Calculation.GetTechnologicalReserveDiapason();
 
     SET @StructuredCablingStudioDiapasons = (
         SELECT

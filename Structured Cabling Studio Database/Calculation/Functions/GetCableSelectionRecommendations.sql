@@ -1,4 +1,4 @@
-CREATE FUNCTION Calculate.GetCableSelectionRecommendations(@RecommendationsArguments XML)
+CREATE FUNCTION Calculation.GetCableSelectionRecommendations(@RecommendationsArguments XML)
 RETURNS NVARCHAR(MAX)
 AS
 BEGIN
@@ -14,10 +14,10 @@ BEGIN
     DECLARE @RecommendationShieldedType NVARCHAR(50);
     DECLARE @RecommendationCableStandard NVARCHAR(50);
 
-    SELECT @RecommendationIsolationType = Calculate.GetIsolationTypeRecommendation(@IsolationType);
-    SELECT @RecommendationIsolationMaterial = Calculate.GetIsolationMaterialRecommendation(@IsolationMaterial);
-    SELECT @RecommendationShieldedType = Calculate.GetShieldedTypeRecommendation(@ShieldedType);
-    SELECT @RecommendationCableStandard = Calculate.GetCableStandardRecommendation(@ConnectionInterfaces);
+    SELECT @RecommendationIsolationType = Calculation.GetIsolationTypeRecommendation(@IsolationType);
+    SELECT @RecommendationIsolationMaterial = Calculation.GetIsolationMaterialRecommendation(@IsolationMaterial);
+    SELECT @RecommendationShieldedType = Calculation.GetShieldedTypeRecommendation(@ShieldedType);
+    SELECT @RecommendationCableStandard = Calculation.GetCableStandardRecommendation(@ConnectionInterfaces);
 
     SET @Recommendations = (
         SELECT

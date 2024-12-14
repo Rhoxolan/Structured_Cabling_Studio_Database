@@ -1,4 +1,4 @@
-CREATE FUNCTION Calculate.GetNumberOfPortsDiapason(@IsAnArbitraryNumberOfPorts)
+CREATE FUNCTION Calculation.GetNumberOfPortsDiapason(@IsAnArbitraryNumberOfPorts BIT)
 RETURNS XML
 AS
 BEGIN
@@ -8,7 +8,7 @@ BEGIN
     DECLARE @Max DECIMAL(10, 5);
 
     SELECT @Min = Min, @Max = Max
-    FROM Calculate.NumberOfPortsDiapasons
+    FROM Calculation.NumberOfPortsDiapasons
     WHERE IsAnArbitraryNumberOfPorts = @IsAnArbitraryNumberOfPorts;
 
     SET @NumberOfPortsDiapason = (

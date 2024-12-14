@@ -1,4 +1,4 @@
-CREATE FUNCTION Calculate.GetNumberOfWorkplacesDiapason()
+CREATE FUNCTION Calculation.GetNumberOfWorkplacesDiapason()
 RETURNS XML
 AS
 BEGIN
@@ -8,7 +8,7 @@ BEGIN
     DECLARE @Max DECIMAL(10, 5);
 
     SELECT @Min = Min, @Max = Max
-    FROM Calculate.NumberOfWorkplacesDiapasons;
+    FROM Calculation.NumberOfWorkplacesDiapasons;
 
     SET @NumberOfWorkplacesDiapason = (
         SELECT

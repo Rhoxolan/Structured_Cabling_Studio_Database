@@ -1,4 +1,4 @@
-CREATE FUNCTION Calculate.CalculateConfigurationWithoutHankMeterage(
+CREATE FUNCTION Calculation.CalculateConfigurationWithoutHankMeterage(
     @MinPermanentLink FLOAT(1),
     @MaxPermanentLink FLOAT(1),
     @NumberOfWorkplaces INT,
@@ -21,7 +21,7 @@ BEGIN
 
     IF @IsRecommendationsAvailability = 1
     BEGIN
-        SELECT @Recommendations = Calculate.GetCableSelectionRecommendations(@RecommendationsArguments);
+        SELECT @Recommendations = Calculation.GetCableSelectionRecommendations(@RecommendationsArguments);
     END
 
     SET @CablingConfigurationCalculatedData = (

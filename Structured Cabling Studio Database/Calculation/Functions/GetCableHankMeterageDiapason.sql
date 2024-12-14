@@ -1,4 +1,4 @@
-CREATE FUNCTION Calculate.GetCableHankMeterageDiapason()
+CREATE FUNCTION Calculation.GetCableHankMeterageDiapason()
 RETURNS XML
 AS
 BEGIN
@@ -8,9 +8,9 @@ BEGIN
     DECLARE @Max DECIMAL(10, 5);
 
     SELECT @Min = Min, @Max = Max
-    FROM Calculate.CableHankMeterageDiapasons;
+    FROM Calculation.CableHankMeterageDiapasons;
 
-    SET @CableHankMeterage = (
+    SET @CableHankMeterageDiapason = (
         SELECT
             @Min AS 'Min',
             @Max AS 'Max'

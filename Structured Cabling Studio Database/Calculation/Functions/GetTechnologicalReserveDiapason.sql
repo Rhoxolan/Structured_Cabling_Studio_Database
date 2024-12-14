@@ -1,4 +1,4 @@
-CREATE FUNCTION Calculate.GetTechnologicalReserveDiapason()
+CREATE FUNCTION Calculation.GetTechnologicalReserveDiapason()
 RETURNS XML
 AS
 BEGIN
@@ -8,7 +8,7 @@ BEGIN
     DECLARE @Max DECIMAL(10, 5);
 
     SELECT @Min = Min, @Max = Max
-    FROM Calculate.TechnologicalReserveDiapasons;
+    FROM Calculation.TechnologicalReserveDiapasons;
 
     SET @TechnologicalReserveDiapason = (
         SELECT

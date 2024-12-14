@@ -1,4 +1,4 @@
-CREATE FUNCTION Calculate.GetMinPermanentLinkDiapason(@IsStrictComplianceWithTheStandart)
+CREATE FUNCTION Calculation.GetMinPermanentLinkDiapason(@IsStrictComplianceWithTheStandart BIT)
 RETURNS XML
 AS
 BEGIN
@@ -8,7 +8,7 @@ BEGIN
     DECLARE @Max DECIMAL(10, 5);
 
     SELECT @Min = Min, @Max = Max
-    FROM Calculate.MinPermanentLinkDiapasons
+    FROM Calculation.MinPermanentLinkDiapasons
     WHERE IsStrictComplianceWithTheStandart = @IsStrictComplianceWithTheStandart;
 
     SET @MinPermanentLinkDiapason = (
