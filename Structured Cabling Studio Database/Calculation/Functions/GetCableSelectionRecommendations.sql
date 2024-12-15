@@ -7,7 +7,7 @@ BEGIN
     DECLARE @IsolationType NVARCHAR(MAX) = @RecommendationsArguments.value('(/RecommendationsArguments/IsolationType)[1]', 'nvarchar(max)');
     DECLARE @IsolationMaterial NVARCHAR(MAX) = @RecommendationsArguments.value('(/RecommendationsArguments/IsolationMaterial)[1]', 'nvarchar(max)');
     DECLARE @ShieldedType NVARCHAR(MAX) = @RecommendationsArguments.value('(/RecommendationsArguments/ShieldedType)[1]', 'nvarchar(max)');
-    DECLARE @ConnectionInterfaces XML = @RecommendationsArguments.value('(/RecommendationsArguments/ConnectionInterfaces)[1]', 'xml');
+    DECLARE @ConnectionInterfaces XML = @RecommendationsArguments.query('(/RecommendationsArguments/ConnectionInterfaces)[1]');
 
     DECLARE @RecommendationIsolationType NVARCHAR(50);
     DECLARE @RecommendationIsolationMaterial NVARCHAR(50);

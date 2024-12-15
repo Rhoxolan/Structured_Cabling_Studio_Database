@@ -16,7 +16,7 @@ BEGIN
     DECLARE @CablingConfigurationCalculatedData XML;
 
     DECLARE @AveragePermanentLink FLOAT(1) = (@MinPermanentLink + @MaxPermanentLink) / 2 * @TechnologicalReserve;
-    DECLARE @TotalCableQuantity FLOAT(1) = @HankQuantity * @CableHankMeterage * @NumberOfPorts;
+    DECLARE @TotalCableQuantity FLOAT(1) = @AveragePermanentLink * @NumberOfWorkplaces * @NumberOfPorts;
     DECLARE @Recommendations NVARCHAR(MAX);
 
     IF @IsRecommendationsAvailability = 1
