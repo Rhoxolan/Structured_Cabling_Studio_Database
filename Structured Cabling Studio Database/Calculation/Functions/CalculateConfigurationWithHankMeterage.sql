@@ -14,19 +14,27 @@ CREATE FUNCTION Calculation.CalculateConfigurationWithHankMeterage(
 RETURNS XML
 AS
 BEGIN
-    DECLARE @CablingConfigurationCalculatedData XML;
-
     IF @CableHankMeterage IS NULL
     BEGIN
-        THROW 51000, 'Structured cabling configuration calculating error! Value of cable meterage in 1 hank is not determined', 1;
+        RETURN (
+            SELECT 'Fault' AS 'Status',
+                   'Structured cabling configuration calculating error! Value of cable meterage in 1 hank is not determined' AS 'ErrorMessage'
+            FOR XML PATH('CablingConfigurationCalculatedData'), TYPE
+        );
     END
 
     DECLARE @AveragePermanentLink FLOAT(1) = (@MinPermanentLink + @MaxPermanentLink) / 2 * @TechnologicalReserve;
 
     IF @AveragePermanentLink > @CableHankMeterage
     BEGIN
-        THROW 51000, 'Calculation is impossible! The value of average permanent link length more than the value of cable hank meterage', 1;
+        RETURN (
+            SELECT 'Fault' AS 'Status',
+                   'Calculation is impossible! The value of average permanent link length more than the value of cable hank meterage' AS 'ErrorMessage'
+            FOR XML PATH('CablingConfigurationCalculatedData'), TYPE
+        );
     END
+
+    DECLARE @CablingConfigurationCalculatedData XML;
 
     DECLARE @CableQuantity FLOAT(1) = @AveragePermanentLink * @NumberOfWorkplaces * @NumberOfPorts;
     DECLARE @HankQuantity INT = CAST(CEILING(@NumberOfWorkplaces * @NumberOfPorts / FLOOR(@CableHankMeterage / @AveragePermanentLink)) AS INT);

@@ -1,11 +1,11 @@
 CREATE PROCEDURE Calculation.CalculateStructuredCablingConfiguration
-    @ConfigurationCalculateParameters XML INPUT,
-    @StructuredCablingStudioParameters XML INPUT,
-    @RecordTime DATETIME2 INPUT,
-    @MinPermanentLink FLOAT(1) INPUT,
-    @MaxPermanentLink FLOAT(1) INPUT,
-    @NumberOfWorkplaces INT INPUT,
-    @NumberOfPorts INT INPUT,
+    @ConfigurationCalculateParameters XML,
+    @StructuredCablingStudioParameters XML,
+    @RecordTime DATETIME2,
+    @MinPermanentLink FLOAT(1),
+    @MaxPermanentLink FLOAT(1),
+    @NumberOfWorkplaces INT,
+    @NumberOfPorts INT,
     @CablingConfiguration XML OUTPUT
 AS
 BEGIN
@@ -38,7 +38,7 @@ BEGIN
     SET @IsStrictComplianceWithTheStandart = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsStrictComplianceWithTheStandart)[1]', 'bit');
     SET @IsAnArbitraryNumberOfPorts = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsAnArbitraryNumberOfPorts)[1]', 'bit');
     SET @IsTechnologicalReserveAvailability = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/IsTechnologicalReserveAvailability)[1]', 'bit');
-    SET @RecommendationsArguments = @StructuredCablingStudioParameters.value('(/StructuredCablingStudioParameters/RecommendationsArguments)[1]', 'xml');
+    SET @RecommendationsArguments = @StructuredCablingStudioParameters.query('(/StructuredCablingStudioParameters/RecommendationsArguments)[1]');
 
     SET @CablingConfigurationCalculatedData = CASE
                                     WHEN @IsCableHankMeterageAvailability = 1
@@ -64,6 +64,13 @@ BEGIN
                                                                                     @IsTechnologicalReserveAvailability,
                                                                                     @RecommendationsArguments)
                                 END;
+
+    IF @CablingConfigurationCalculatedData.exist('/CablingConfigurationCalculatedData[Status="Fault"]') = 1
+    BEGIN
+        DECLARE @ErrorMessage NVARCHAR(MAX);
+        SELECT @ErrorMessage = @CablingConfigurationCalculatedData.value('(/CablingConfigurationCalculatedData/ErrorMessage)[1]', 'NVARCHAR(MAX)');
+        THROW 51000, @ErrorMessage, 1;
+    END;
 
     SET @AveragePermanentLink = @CablingConfigurationCalculatedData.value('(/Data/AveragePermanentLink)[1]', 'float');
     SET @CableQuantity = @CablingConfigurationCalculatedData.value('(/Data/CableQuantity)[1]', 'float');
