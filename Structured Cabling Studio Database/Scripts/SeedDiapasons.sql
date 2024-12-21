@@ -1,20 +1,20 @@
-INSERT INTO Calculate.CableHankMeterageDiapasons VALUES
+INSERT INTO Calculation.CableHankMeterageDiapasons VALUES
 (0.01, 10000)
 
-INSERT INTO Calculate.MaxPermanentLinkDiapasons VALUES
-(1, 90, TRUE),
-(0.01, 1000, FALSE)
+INSERT INTO Calculation.MaxPermanentLinkDiapasons VALUES
+(1, 90, 1),
+(0.01, 1000, 0)
 
-INSERT INTO Calculate.MinPermanentLinkDiapasons VALUES
-(1, 90, TRUE),
-(0.01, 1000, FALSE)
+INSERT INTO Calculation.MinPermanentLinkDiapasons VALUES
+(1, 90, 1),
+(0.01, 1000, 0)
 
-INSERT INTO Calculate.NumberOfPortsDiapasons VALUES
-(1, 100, TRUE),
-(2, 100, FALSE)
+INSERT INTO Calculation.NumberOfPortsDiapasons VALUES
+(1, 100, 1),
+(2, 100, 0)
 
-INSERT INTO Calculate.TechnologicalReserveDiapasons VALUES
+INSERT INTO Calculation.TechnologicalReserveDiapasons VALUES
 (1, 2)
 
-INSERT INTO Calculate.NumberOfWorkplacesDiapasons VALUES
+INSERT INTO Calculation.NumberOfWorkplacesDiapasons VALUES
 (1, 10000)

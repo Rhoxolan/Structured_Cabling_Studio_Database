@@ -1,4 +1,4 @@
 CREATE TABLE Calculation.IsolationTypeRecommendations (
     IsolationType NVARCHAR(MAX) NOT NULL,
-    Recommendation NVARCHAR(50) NULL
+    Recommendation NVARCHAR(75) NULL
 )
