@@ -12,5 +12,10 @@ BEGIN
 
     SET @StructuredCablingStudioDiapasons = Calculation.GetStructuredCablingStudioParametersDiapasons(@IsStrictComplianceWithTheStandart,
                                                                                                 @IsAnArbitraryNumberOfPorts);
+                                                                                                
+    SET @StructuredCablingStudioParameters.modify('
+        insert sql:variable("@StructuredCablingStudioDiapasons")
+        into (/StructuredCablingStudioParameters)[1]
+    ');
 
 END;

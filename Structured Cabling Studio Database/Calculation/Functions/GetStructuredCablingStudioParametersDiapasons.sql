@@ -14,22 +14,22 @@ BEGIN
     DECLARE @CableHankMeterageDiapason XML;
     DECLARE @TechnologicalReserveDiapason XML;
 
-    SELECT @MinPermanentLinkDiapason = Calculation.GetMinPermanentLinkDiapason(@IsStrictComplianceWithTheStandart);
-    SELECT @MaxPermanentLinkDiapason = Calculation.GetMaxPermanentLinkDiapason(@IsStrictComplianceWithTheStandart);
-    SELECT @NumberOfPortsDiapason = Calculation.GetNumberOfPortsDiapason(@IsAnArbitraryNumberOfPorts);
-    SELECT @NumberOfWorkplacesDiapason = Calculation.GetNumberOfWorkplacesDiapason();
-    SELECT @CableHankMeterageDiapason = Calculation.GetCableHankMeterageDiapason();
-    SELECT @TechnologicalReserveDiapason = Calculation.GetTechnologicalReserveDiapason();
+    SELECT @MinPermanentLinkDiapason = Calculation.GetMinPermanentLinkDiapason(@IsStrictComplianceWithTheStandart),
+        @MaxPermanentLinkDiapason = Calculation.GetMaxPermanentLinkDiapason(@IsStrictComplianceWithTheStandart),
+        @NumberOfPortsDiapason = Calculation.GetNumberOfPortsDiapason(@IsAnArbitraryNumberOfPorts),
+        @NumberOfWorkplacesDiapason = Calculation.GetNumberOfWorkplacesDiapason(),
+        @CableHankMeterageDiapason = Calculation.GetCableHankMeterageDiapason(),
+        @TechnologicalReserveDiapason = Calculation.GetTechnologicalReserveDiapason();
 
     SET @StructuredCablingStudioDiapasons = (
         SELECT
-            @MinPermanentLinkDiapason AS 'MinPermanentLinkDiapason',
-            @MaxPermanentLinkDiapason AS 'MaxPermanentLinkDiapason',
-            @NumberOfPortsDiapason AS 'NumberOfPortsDiapason',
-            @NumberOfWorkplacesDiapason AS 'NumberOfWorkplacesDiapason',
-            @CableHankMeterageDiapason AS 'CableHankMeterageDiapason',
-            @TechnologicalReserveDiapason AS 'TechnologicalReserveDiapason'
-        FOR XML PATH('StructuredCablingStudioDiapasons'), TYPE
+            @MinPermanentLinkDiapason AS '*',
+            @MaxPermanentLinkDiapason AS '*',
+            @NumberOfPortsDiapason AS '*',
+            @NumberOfWorkplacesDiapason AS '*',
+            @CableHankMeterageDiapason AS '*',
+            @TechnologicalReserveDiapason AS '*'
+        FOR XML PATH('Diapasons'), TYPE
     );
 
     RETURN @StructuredCablingStudioDiapasons;
