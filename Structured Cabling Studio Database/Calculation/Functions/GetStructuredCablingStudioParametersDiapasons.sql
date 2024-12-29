@@ -29,7 +29,7 @@ BEGIN
             @NumberOfWorkplacesDiapason AS '*',
             @CableHankMeterageDiapason AS '*',
             @TechnologicalReserveDiapason AS '*'
-        FOR XML PATH('Diapasons'), TYPE
+        FOR XML PATH('StructuredCablingStudioDiapasons'), TYPE
     );
 
     RETURN @StructuredCablingStudioDiapasons;
