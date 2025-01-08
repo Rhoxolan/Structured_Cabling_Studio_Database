@@ -14,10 +14,10 @@ BEGIN
     DECLARE @RecommendationShieldedType NVARCHAR(50);
     DECLARE @RecommendationCableStandard NVARCHAR(50);
 
-    SELECT @RecommendationIsolationType = Calculation.GetIsolationTypeRecommendation(@IsolationType);
-    SELECT @RecommendationIsolationMaterial = Calculation.GetIsolationMaterialRecommendation(@IsolationMaterial);
-    SELECT @RecommendationShieldedType = Calculation.GetShieldedTypeRecommendation(@ShieldedType);
-    SELECT @RecommendationCableStandard = Calculation.GetCableStandardRecommendation(@ConnectionInterfaces);
+    SELECT @RecommendationIsolationType = Calculation.GetIsolationTypeRecommendation(@IsolationType),
+        @RecommendationIsolationMaterial = Calculation.GetIsolationMaterialRecommendation(@IsolationMaterial),
+        @RecommendationShieldedType = Calculation.GetShieldedTypeRecommendation(@ShieldedType),
+        @RecommendationCableStandard = Calculation.GetCableStandardRecommendation(@ConnectionInterfaces);
 
     SET @Recommendations = (
         SELECT
