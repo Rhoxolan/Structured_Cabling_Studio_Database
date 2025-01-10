@@ -1,5 +1,5 @@
 INSERT INTO Calculation.CableHankMeterageDiapasons VALUES
-(0.01, 10000)
+(1, 10000)
 
 INSERT INTO Calculation.MaxPermanentLinkDiapasons VALUES
 (1, 90, 1),
