@@ -6,7 +6,7 @@ BEGIN
 
     SELECT TOP 1 @Recommendation = Calculation.CableStandardRecommendations.Recommendation
     FROM Calculation.CableStandardRecommendations,
-        @ConnectionInterfaces.nodes('/ConnectionInterfaces/ConnectionInterface') AS CI(ConnectionInterface)
+        @ConnectionInterfaces.nodes('/ConnectionInterfaces/ConnectionInterfaceStandard') AS CI(ConnectionInterface)
     WHERE Calculation.CableStandardRecommendations.ConnectionInterfaceStandard = CI.ConnectionInterface.value('.', 'NVARCHAR(MAX)')
     ORDER BY Calculation.CableStandardRecommendations.[Order] DESC;
 

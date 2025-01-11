@@ -21,10 +21,10 @@ BEGIN
 
     SET @Recommendations = (
         SELECT
-            @RecommendationIsolationType AS RecommendationIsolationType,
-            @RecommendationIsolationMaterial AS RecommendationIsolationMaterial,
-            @RecommendationShieldedType AS RecommendationShieldedType,
-            @RecommendationCableStandard AS RecommendationCableStandard
+            @RecommendationIsolationType AS 'Insulation Type',
+            @RecommendationIsolationMaterial AS 'Insulation Material',
+            @RecommendationCableStandard AS 'Standart',
+            @RecommendationShieldedType AS 'Shielding'
         FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
     );
 

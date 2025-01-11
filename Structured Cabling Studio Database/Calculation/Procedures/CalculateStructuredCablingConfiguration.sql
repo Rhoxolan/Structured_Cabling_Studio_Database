@@ -72,11 +72,11 @@ BEGIN
         THROW 51000, @ErrorMessage, 1;
     END;
 
-    SET @AveragePermanentLink = @CablingConfigurationCalculatedData.value('(/Data/AveragePermanentLink)[1]', 'float');
-    SET @CableQuantity = @CablingConfigurationCalculatedData.value('(/Data/CableQuantity)[1]', 'float');
-    SET @HankQuantity = @CablingConfigurationCalculatedData.value('(/Data/HankQuantity)[1]', 'int');
-    SET @TotalCableQuantity = @CablingConfigurationCalculatedData.value('(/Data/TotalCableQuantity)[1]', 'float');
-    SET @Recommendations = @CablingConfigurationCalculatedData.value('(/Data/Recommendations)[1]', 'nvarchar(max)');
+    SET @AveragePermanentLink = @CablingConfigurationCalculatedData.value('(/CablingConfigurationCalculatedData/AveragePermanentLink)[1]', 'float');
+    SET @CableQuantity = @CablingConfigurationCalculatedData.value('(/CablingConfigurationCalculatedData/CableQuantity)[1]', 'float');
+    SET @HankQuantity = @CablingConfigurationCalculatedData.value('(/CablingConfigurationCalculatedData/HankQuantity)[1]', 'int');
+    SET @TotalCableQuantity = @CablingConfigurationCalculatedData.value('(/CablingConfigurationCalculatedData/TotalCableQuantity)[1]', 'float');
+    SET @Recommendations = @CablingConfigurationCalculatedData.value('(/CablingConfigurationCalculatedData/Recommendations)[1]', 'nvarchar(max)');
 
     SET @UserId = CAST(SESSION_CONTEXT(N'UserId') AS NVARCHAR(450));
 
