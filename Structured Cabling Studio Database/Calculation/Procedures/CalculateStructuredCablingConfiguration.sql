@@ -86,7 +86,7 @@ BEGIN
 
         INSERT INTO Calculation.CablingConfigurations(UserId, RecordTime, MinPermanentLink, MaxPermanentLink, AveragePermanentLink, NumberOfWorkplaces, NumberOfPorts, CableQuantity,
                                             CableHankMeterage, HankQuantity, TotalCableQuantity, Recommendations)
-        OUTPUT inserted.Id INTO InsertedIds
+        OUTPUT inserted.Id INTO @InsertedIds
         VALUES(@UserId, @RecordTime, @MinPermanentLink, @MaxPermanentLink, @AveragePermanentLink, @NumberOfWorkplaces, @NumberOfPorts, @CableQuantity, @CableHankMeterage,
                 @HankQuantity, @TotalCableQuantity, @Recommendations)
         
